@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<VersionPrefix>2.0.5</VersionPrefix>
+		<Authors>Tech J Mage</Authors>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<PackageProjectUrl>https://github.com/techJmage/HtmlToPdfMaker</PackageProjectUrl>
+		<DocumentationFile>..\Documentation\help.xml</DocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Company>Alumnus Software Ltd.</Company>
+		<Copyright>Alumnus Software Ltd.</Copyright>
+		<PackageReadmeFile>help.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/techJmage/HtmlToPdfMaker</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>html, pdf, converter</PackageTags>		
+	</PropertyGroup>
+	<PropertyGroup>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\Documentation\help.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="HtmlToPdfConverter.Core" Version="2.0.0" />
+		<PackageReference Include="ImageConverter" Version="1.0.0" />
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+		<PackageReference Include="Ulid" Version="1.3.4" />
+		<PackageReference Include="Utility.Disposable" Version="1.1.2" />
+		<PackageReference Include="Vsxmd" Version="1.4.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+</Project>
