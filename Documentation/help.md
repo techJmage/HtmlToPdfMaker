@@ -10,7 +10,7 @@
   - [GeneratePdf(objSettings)](#M-HtmlToPdfMaker-Convert-GeneratePdf-System-Collections-Generic-IEnumerable{DinkToPdf-ObjectSettings}- 'HtmlToPdfMaker.Convert.GeneratePdf(System.Collections.Generic.IEnumerable{DinkToPdf.ObjectSettings})')
   - [HttpImagePattern()](#M-HtmlToPdfMaker-Convert-HttpImagePattern 'HtmlToPdfMaker.Convert.HttpImagePattern')
   - [ReleaseResources()](#M-HtmlToPdfMaker-Convert-ReleaseResources 'HtmlToPdfMaker.Convert.ReleaseResources')
-  - [ToPdfAsync(token)](#M-HtmlToPdfMaker-Convert-ToPdfAsync-System-Threading-CancellationToken- 'HtmlToPdfMaker.Convert.ToPdfAsync(System.Threading.CancellationToken)')
+  - [ToPdfAsync(imageFormat,imageQuality,token)](#M-HtmlToPdfMaker-Convert-ToPdfAsync-ImageMagick-MagickFormat,System-Int32,System-Threading-CancellationToken- 'HtmlToPdfMaker.Convert.ToPdfAsync(ImageMagick.MagickFormat,System.Int32,System.Threading.CancellationToken)')
 - [HttpImagePattern_0](#T-System-Text-RegularExpressions-Generated-HttpImagePattern_0 'System.Text.RegularExpressions.Generated.HttpImagePattern_0')
   - [#ctor()](#M-System-Text-RegularExpressions-Generated-HttpImagePattern_0-#ctor 'System.Text.RegularExpressions.Generated.HttpImagePattern_0.#ctor')
   - [Instance](#F-System-Text-RegularExpressions-Generated-HttpImagePattern_0-Instance 'System.Text.RegularExpressions.Generated.HttpImagePattern_0.Instance')
@@ -44,13 +44,13 @@ Usage:
  [TestMethod()]
  public void ToPdfTest()
  {
-     List&lt;ContentSet&gt; contentSets = [];
-     contentSets.Add(SetContents("&lt;body&gt;&lt;h3&gt;Спокойной ночи&lt;/h3&gt;&lt;p&gt;शुभ रात्रि&lt;/p&gt;&lt;p&gt;Português para principiantes&lt;/p&gt;&lt;hr /&gt;&lt;p&gt;আমি &lt;/p&gt;&lt;/body&gt;", "&lt;body&gt;&lt;div&gt;&lt;b&gt;Спокойной ночи&lt;/b&gt;&lt;/div&gt;&lt;/body&gt;", "Test Page"));
-     contentSets.Add(SetContents("&lt;body&gt;&lt;div&gt;&lt;h1&gt;Tech J Mage&lt;/h1&gt;&lt;/div&gt;&lt;/body&gt;", "&lt;body&gt;&lt;h3&gt;&lt;u&gt;Header1&lt;/u&gt;&lt;/h3&gt;", "My page"));
+     List<ContentSet> contentSets = [];
+     contentSets.Add(SetContents("<body><h3>Спокойной ночи</h3><p>शुभ रात्रि</p><p>Português para principiantes</p><hr /><p>আমি </p></body>", "<body><div><b>Спокойной ночи</b></div></body>", "Test Page"));
+     contentSets.Add(SetContents("<body><div><h1>Tech J Mage</h1></div></body>", "<body><h3><u>Header1</u></h3>", "My page"));
      using Convert cvt = new(contentSets);
      var data = cvt.ToPdfAsync(CancellationToken.None).Result;
      File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "\\Pdf\\test2.pdf", data);
-     Assert.IsTrue(data.Length &gt; 0);
+     Assert.IsTrue(data.Length > 0);
      static ContentSet SetContents(string bodyHtml, string headerHtml, string footerHtml)
      {
          var header = Content.CreateDefaultStyledHeader(headerHtml);
@@ -84,13 +84,13 @@ Usage:
  [TestMethod()]
  public void ToPdfTest()
  {
-     List&lt;ContentSet&gt; contentSets = [];
-     contentSets.Add(SetContents("&lt;body&gt;&lt;h3&gt;Спокойной ночи&lt;/h3&gt;&lt;p&gt;शुभ रात्रि&lt;/p&gt;&lt;p&gt;Português para principiantes&lt;/p&gt;&lt;hr /&gt;&lt;p&gt;আমি &lt;/p&gt;&lt;/body&gt;", "&lt;body&gt;&lt;div&gt;&lt;b&gt;Спокойной ночи&lt;/b&gt;&lt;/div&gt;&lt;/body&gt;", "Test Page"));
-     contentSets.Add(SetContents("&lt;body&gt;&lt;div&gt;&lt;h1&gt;Tech J Mage&lt;/h1&gt;&lt;/div&gt;&lt;/body&gt;", "&lt;body&gt;&lt;h3&gt;&lt;u&gt;Header1&lt;/u&gt;&lt;/h3&gt;", "My page"));
+     List<ContentSet> contentSets = [];
+     contentSets.Add(SetContents("<body><h3>Спокойной ночи</h3><p>शुभ रात्रि</p><p>Português para principiantes</p><hr /><p>আমি </p></body>", "<body><div><b>Спокойной ночи</b></div></body>", "Test Page"));
+     contentSets.Add(SetContents("<body><div><h1>Tech J Mage</h1></div></body>", "<body><h3><u>Header1</u></h3>", "My page"));
      using Convert cvt = new(contentSets);
      var data = cvt.ToPdfAsync(CancellationToken.None).Result;
      File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "\\Pdf\\test2.pdf", data);
-     Assert.IsTrue(data.Length &gt; 0);
+     Assert.IsTrue(data.Length > 0);
      static ContentSet SetContents(string bodyHtml, string headerHtml, string footerHtml)
      {
          var header = Content.CreateDefaultStyledHeader(headerHtml);
@@ -148,7 +148,7 @@ This method has no parameters.
 Pattern:
 
 ```
-http(s)?:\\/\\/[\\w\\.\\/\\:\\-]+\\.(?&lt;ext&gt;(png)|(webp))
+http(s)?:\\/\\/[\\w\\.\\/\\:\\-]+\\.(?<ext>(png)|(webp))
 ```
 
 Options:
@@ -174,8 +174,8 @@ Releases the resources.
 
 This method has no parameters.
 
-<a name='M-HtmlToPdfMaker-Convert-ToPdfAsync-System-Threading-CancellationToken-'></a>
-### ToPdfAsync(token) `method`
+<a name='M-HtmlToPdfMaker-Convert-ToPdfAsync-ImageMagick-MagickFormat,System-Int32,System-Threading-CancellationToken-'></a>
+### ToPdfAsync(imageFormat,imageQuality,token) `method`
 
 ##### Summary
 
@@ -189,6 +189,8 @@ Converts to pdf.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
+| imageFormat | [ImageMagick.MagickFormat](#T-ImageMagick-MagickFormat 'ImageMagick.MagickFormat') |  |
+| imageQuality | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 | token | [System.Threading.CancellationToken](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Threading.CancellationToken 'System.Threading.CancellationToken') | The token. |
 
 <a name='T-System-Text-RegularExpressions-Generated-HttpImagePattern_0'></a>

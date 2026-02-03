@@ -73,10 +73,12 @@
             Releases the resources.
             </summary>
         </member>
-        <member name="M:HtmlToPdfMaker.Convert.ToPdfAsync(System.Threading.CancellationToken)">
+        <member name="M:HtmlToPdfMaker.Convert.ToPdfAsync(ImageMagick.MagickFormat,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Converts to pdf.
             </summary>
+            <param name="imageFormat"></param>
+            <param name="imageQuality"></param>
             <param name="token">The token.</param>
             <returns></returns>
         </member>
@@ -100,16 +102,16 @@
             ○ Match a character in the set [Pp].<br/>
             ○ Match a character in the set [Ss] atomically, optionally.<br/>
             ○ Match the string "://".<br/>
-            ○ Match a character in the set [--/:\w] greedily at least once.<br/>
+            ○ Match a character in the set [\--/:\w] greedily at least once.<br/>
             ○ Match '.'.<br/>
             ○ "ext" capture group.<br/>
                 ○ Match with 2 alternative expressions, atomically.<br/>
                     ○ Match a sequence of expressions.<br/>
-                        ○ Match an empty string.<br/>
+                        ○ Match a character in the set [Pp].<br/>
                         ○ Match a character in the set [Nn].<br/>
                         ○ Match a character in the set [Gg].<br/>
                     ○ Match a sequence of expressions.<br/>
-                        ○ Match an empty string.<br/>
+                        ○ Match a character in the set [Ww].<br/>
                         ○ Match a character in the set [Ee].<br/>
                         ○ Match a character in the set [Bb].<br/>
                         ○ Match a character in the set [Pp].<br/>

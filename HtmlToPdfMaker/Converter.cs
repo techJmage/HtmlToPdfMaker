@@ -1,5 +1,5 @@
 ﻿using DinkToPdf;
-using System.Text;
+using ImageMagick;
 using System.Text.RegularExpressions;
 using Utility;
 namespace HtmlToPdfMaker;
@@ -57,9 +57,11 @@ public partial class Convert(IReadOnlyList<ContentSet> contents, string? tempRoo
     /// <summary>
     /// Converts to pdf.
     /// </summary>
+    /// <param name="imageFormat"></param>
+    /// <param name="imageQuality"></param>
     /// <param name="token">The token.</param>
     /// <returns></returns>
-    public async Task<byte[]> ToPdfAsync(CancellationToken token = default)
+    public async Task<byte[]> ToPdfAsync(MagickFormat imageFormat = MagickFormat.Png, int imageQuality = 90, CancellationToken token = default)
     {
         if (!Directory.Exists(tempFolder))
             Directory.CreateDirectory(tempFolder);
@@ -105,7 +107,7 @@ public partial class Convert(IReadOnlyList<ContentSet> contents, string? tempRoo
                     {
                         var data = await client.GetByteArrayAsync(p.Key, token).ConfigureAwait(false);
                         if (!File.Exists(localPath) && ext.Equals("webp", StringComparison.CurrentCultureIgnoreCase))
-                            data = ImageConverter.Convert.To(data);
+                            data = ImageConverter.Convert.To(data, imageFormat, imageQuality);
                         if (!File.Exists(localPath))
                             try
                             {
